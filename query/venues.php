@@ -7,7 +7,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
 
     case "GET":
-        $stmt = $conn->prepare("SELECT * FROM ExaminationVenues");
+        $stmt = $conn->prepare("SELECT * FROM Examination_Venues");
         $stmt->execute();
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         break;
