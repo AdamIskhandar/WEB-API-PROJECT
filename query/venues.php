@@ -15,10 +15,10 @@ switch ($method) {
     case "POST":
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $conn->prepare("INSERT INTO ExaminationVenues (VenueName, Capacity, Location)
+        $stmt = $conn->prepare("INSERT INTO Examination_Venues (Venue_Name, Capacity, Location)
                                 VALUES (?, ?, ?)");
         $stmt->execute([
-            $data['VenueName'],
+            $data['Venue_Name'],
             $data['Capacity'],
             $data['Location']
         ]);
@@ -29,15 +29,15 @@ switch ($method) {
     case "PUT":
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $conn->prepare("UPDATE ExaminationVenues 
-                                SET VenueName=?, Capacity=?, Location=? 
-                                WHERE VenueID=?");
+        $stmt = $conn->prepare("UPDATE Examination_Venues 
+                                SET Venue_Name=?, Capacity=?, Location=? 
+                                WHERE Venue_ID=?");
 
         $stmt->execute([
-            $data['VenueName'],
+            $data['Venue_Name'],
             $data['Capacity'],
             $data['Location'],
-            $data['VenueID']
+            $data['Venue_ID']
         ]);
 
         echo json_encode(["message" => "Venue updated"]);
@@ -46,8 +46,8 @@ switch ($method) {
     case "DELETE":
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $conn->prepare("DELETE FROM ExaminationVenues WHERE VenueID=?");
-        $stmt->execute([$data['VenueID']]);
+        $stmt = $conn->prepare("DELETE FROM Examination_Venues WHERE VenueID=?");
+        $stmt->execute([$data['Venue_ID']]);
 
         echo json_encode(["message" => "Venue deleted"]);
         break;
