@@ -8,10 +8,10 @@ switch ($method) {
 
     case "GET":
         $stmt = $conn->prepare("
-            SELECT e.*, c.CourseCode, v.VenueName
+            SELECT e.*, c.Course_Code, v.Venue_Name
             FROM Examinations e
-            JOIN Courses c ON e.CourseID = c.CourseID
-            JOIN ExaminationVenues v ON e.VenueID = v.VenueID
+            JOIN Courses c ON e.Course_ID = c.Course_ID
+            JOIN Examination_venues v ON e.Venue_ID = v.Venue_ID
         ");
         $stmt->execute();
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
