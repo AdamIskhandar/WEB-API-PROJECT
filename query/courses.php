@@ -7,17 +7,17 @@ $method = $_SERVER['REQUEST_METHOD'];
 if ($method == "GET") {
 
     if (isset($_GET['id'])) {
-        $stmt = $pdo->prepare("SELECT * FROM Courses WHERE course_id=?");
+        $stmt = $conn->prepare("SELECT * FROM Courses WHERE course_id=?");
         $stmt->execute([$_GET['id']]);
         echo json_encode($stmt->fetch());
     } else {
-        $stmt = $pdo->query("SELECT * FROM Courses");
+        $stmt = $conn->query("SELECT * FROM Courses");
         echo json_encode($stmt->fetchAll());
     }
 }
 
 if ($method == "POST") {
-    $stmt = $pdo->prepare("
+    $stmt = $conn->prepare("
         INSERT INTO Courses (course_code, course_name, credit_hours, faculty_id, lecturer_id)
         VALUES (?, ?, ?, ?, ?)
     ");
@@ -34,7 +34,7 @@ if ($method == "POST") {
 }
 
 if ($method == "PUT") {
-    $stmt = $pdo->prepare("
+    $stmt = $conn->prepare("
         UPDATE Courses 
         SET course_code=?, course_name=?, credit_hours=?, faculty_id=?, lecturer_id=?
         WHERE course_id=?
@@ -54,9 +54,8 @@ if ($method == "PUT") {
 
 if ($method == "DELETE") {
     $id = $_GET['id'];
-    $stmt = $pdo->prepare("DELETE FROM Courses WHERE course_id=?");
+    $stmt = $conn->prepare("DELETE FROM Courses WHERE course_id=?");
     $stmt->execute([$id]);
 
     echo json_encode(["message" => "Course deleted"]);
 }
-?>

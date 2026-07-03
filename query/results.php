@@ -7,17 +7,17 @@ $method = $_SERVER['REQUEST_METHOD'];
 if ($method == "GET") {
 
     if (isset($_GET['id'])) {
-        $stmt = $pdo->prepare("SELECT * FROM Results WHERE result_id=?");
+        $stmt = $conn->prepare("SELECT * FROM Results WHERE result_id=?");
         $stmt->execute([$_GET['id']]);
         echo json_encode($stmt->fetch());
     } else {
-        $stmt = $pdo->query("SELECT * FROM Results");
+        $stmt = $conn->query("SELECT * FROM Results");
         echo json_encode($stmt->fetchAll());
     }
 }
 
 if ($method == "POST") {
-    $stmt = $pdo->prepare("
+    $stmt = $conn->prepare("
         INSERT INTO Results (student_id, exam_id, marks_obtained, grade, published_at)
         VALUES (?, ?, ?, ?, ?)
     ");
@@ -34,7 +34,7 @@ if ($method == "POST") {
 }
 
 if ($method == "PUT") {
-    $stmt = $pdo->prepare("
+    $stmt = $conn->prepare("
         UPDATE Results
         SET student_id=?, exam_id=?, marks_obtained=?, grade=?, published_at=?
         WHERE result_id=?
@@ -54,9 +54,8 @@ if ($method == "PUT") {
 
 if ($method == "DELETE") {
     $id = $_GET['id'];
-    $stmt = $pdo->prepare("DELETE FROM Results WHERE result_id=?");
+    $stmt = $conn->prepare("DELETE FROM Results WHERE result_id=?");
     $stmt->execute([$id]);
 
     echo json_encode(["message" => "Result deleted"]);
 }
-?>

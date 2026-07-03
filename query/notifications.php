@@ -9,9 +9,9 @@ switch ($method) {
     // ================= READ =================
     case "GET":
 
-        if(isset($_GET['id'])){
+        if (isset($_GET['id'])) {
 
-            $stmt = $pdo->prepare("
+            $stmt = $conn->prepare("
                 SELECT *
                 FROM notifications
                 WHERE notification_id=?
@@ -20,27 +20,25 @@ switch ($method) {
             $stmt->execute([$_GET['id']]);
 
             echo json_encode($stmt->fetch(PDO::FETCH_ASSOC));
+        } else {
 
-        }else{
-
-            $stmt = $pdo->query("
+            $stmt = $conn->query("
                 SELECT *
                 FROM notifications
                 ORDER BY created_at DESC
             ");
 
             echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
-
         }
 
-    break;
+        break;
 
     // ================= CREATE =================
     case "POST":
 
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $pdo->prepare("
+        $stmt = $conn->prepare("
             INSERT INTO notifications
             (user_id,title,message,is_read)
             VALUES (?,?,?,?)
@@ -54,18 +52,18 @@ switch ($method) {
         ]);
 
         echo json_encode([
-            "status"=>"success",
-            "message"=>"Notification created"
+            "status" => "success",
+            "message" => "Notification created"
         ]);
 
-    break;
+        break;
 
     // ================= UPDATE =================
     case "PUT":
 
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $pdo->prepare("
+        $stmt = $conn->prepare("
             UPDATE notifications
             SET
             user_id=?,
@@ -84,18 +82,18 @@ switch ($method) {
         ]);
 
         echo json_encode([
-            "status"=>"success",
-            "message"=>"Notification updated"
+            "status" => "success",
+            "message" => "Notification updated"
         ]);
 
-    break;
+        break;
 
     // ================= DELETE =================
     case "DELETE":
 
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $pdo->prepare("
+        $stmt = $conn->prepare("
             DELETE FROM notifications
             WHERE notification_id=?
         ");
@@ -105,16 +103,15 @@ switch ($method) {
         ]);
 
         echo json_encode([
-            "status"=>"success",
-            "message"=>"Notification deleted"
+            "status" => "success",
+            "message" => "Notification deleted"
         ]);
 
-    break;
+        break;
 
     default:
         echo json_encode([
-            "status"=>"error",
-            "message"=>"Invalid request"
+            "status" => "error",
+            "message" => "Invalid request"
         ]);
 }
-?>

@@ -7,17 +7,17 @@ $method = $_SERVER['REQUEST_METHOD'];
 if ($method == "GET") {
 
     if (isset($_GET['id'])) {
-        $stmt = $pdo->prepare("SELECT * FROM Student_Course_Registration WHERE registration_id=?");
+        $stmt = $conn->prepare("SELECT * FROM Student_Course_Registration WHERE registration_id=?");
         $stmt->execute([$_GET['id']]);
         echo json_encode($stmt->fetch());
     } else {
-        $stmt = $pdo->query("SELECT * FROM Student_Course_Registration");
+        $stmt = $conn->query("SELECT * FROM Student_Course_Registration");
         echo json_encode($stmt->fetchAll());
     }
 }
 
 if ($method == "POST") {
-    $stmt = $pdo->prepare("
+    $stmt = $conn->prepare("
         INSERT INTO Student_Course_Registration (student_id, course_id, semester)
         VALUES (?, ?, ?)
     ");
@@ -32,7 +32,7 @@ if ($method == "POST") {
 }
 
 if ($method == "PUT") {
-    $stmt = $pdo->prepare("
+    $stmt = $conn->prepare("
         UPDATE Student_Course_Registration
         SET student_id=?, course_id=?, semester=?
         WHERE registration_id=?
@@ -50,9 +50,8 @@ if ($method == "PUT") {
 
 if ($method == "DELETE") {
     $id = $_GET['id'];
-    $stmt = $pdo->prepare("DELETE FROM Student_Course_Registration WHERE registration_id=?");
+    $stmt = $conn->prepare("DELETE FROM Student_Course_Registration WHERE registration_id=?");
     $stmt->execute([$id]);
 
     echo json_encode(["message" => "Registration deleted"]);
 }
-?>
