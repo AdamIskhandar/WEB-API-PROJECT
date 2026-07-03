@@ -1,0 +1,54 @@
+<?php
+include "db.php";
+
+header("Content-Type: application/json");
+$method = $_SERVER['REQUEST_METHOD'];
+
+switch ($method) {
+
+    case "GET":
+        $stmt = $conn->prepare("SELECT * FROM ExaminationVenues");
+        $stmt->execute();
+        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        break;
+
+    case "POST":
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $stmt = $conn->prepare("INSERT INTO ExaminationVenues (VenueName, Capacity, Location)
+                                VALUES (?, ?, ?)");
+        $stmt->execute([
+            $data['VenueName'],
+            $data['Capacity'],
+            $data['Location']
+        ]);
+
+        echo json_encode(["message" => "Venue created"]);
+        break;
+
+    case "PUT":
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $stmt = $conn->prepare("UPDATE ExaminationVenues 
+                                SET VenueName=?, Capacity=?, Location=? 
+                                WHERE VenueID=?");
+
+        $stmt->execute([
+            $data['VenueName'],
+            $data['Capacity'],
+            $data['Location'],
+            $data['VenueID']
+        ]);
+
+        echo json_encode(["message" => "Venue updated"]);
+        break;
+
+    case "DELETE":
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $stmt = $conn->prepare("DELETE FROM ExaminationVenues WHERE VenueID=?");
+        $stmt->execute([$data['VenueID']]);
+
+        echo json_encode(["message" => "Venue deleted"]);
+        break;
+}
