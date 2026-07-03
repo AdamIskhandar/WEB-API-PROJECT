@@ -22,17 +22,17 @@ switch ($method) {
 
         $stmt = $conn->prepare("
             INSERT INTO Examinations 
-            (CourseID, VenueID, ExamDate, StartTime, EndTime, ExamType)
+            (Course_ID, Venue_ID, Exam_Date, Start_Time, End_Time, Exam_Type)
             VALUES (?, ?, ?, ?, ?, ?)
         ");
 
         $stmt->execute([
-            $data['CourseID'],
-            $data['VenueID'],
-            $data['ExamDate'],
-            $data['StartTime'],
-            $data['EndTime'],
-            $data['ExamType']
+            $data['Course_ID'],
+            $data['Venue_ID'],
+            $data['Exam_Date'],
+            $data['Start_Time'],
+            $data['End_Time'],
+            $data['Exam_Type']
         ]);
 
         echo json_encode(["message" => "Exam scheduled successfully"]);
@@ -43,18 +43,18 @@ switch ($method) {
 
         $stmt = $conn->prepare("
             UPDATE Examinations 
-            SET CourseID=?, VenueID=?, ExamDate=?, StartTime=?, EndTime=?, ExamType=?
-            WHERE ExamID=?
+            SET Course_ID=?, Venue_ID=?, Exam_Date=?, Start_Time=?, End_Time=?, Exam_Type=?
+            WHERE Exam_ID=?
         ");
 
         $stmt->execute([
-            $data['CourseID'],
-            $data['VenueID'],
-            $data['ExamDate'],
-            $data['StartTime'],
-            $data['EndTime'],
-            $data['ExamType'],
-            $data['ExamID']
+            $data['Course_ID'],
+            $data['Venue_ID'],
+            $data['Exam_Date'],
+            $data['Start_Time'],
+            $data['End_Time'],
+            $data['Exam_Type'],
+            $data['Exam_ID']
         ]);
 
         echo json_encode(["message" => "Exam updated"]);
@@ -63,8 +63,8 @@ switch ($method) {
     case "DELETE":
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $conn->prepare("DELETE FROM Examinations WHERE ExamID=?");
-        $stmt->execute([$data['ExamID']]);
+        $stmt = $conn->prepare("DELETE FROM Examinations WHERE Exam_ID=?");
+        $stmt->execute([$data['Exam_ID']]);
 
         echo json_encode(["message" => "Exam deleted"]);
         break;

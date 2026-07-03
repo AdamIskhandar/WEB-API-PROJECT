@@ -15,12 +15,11 @@ switch ($method) {
     case "POST":
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $conn->prepare("INSERT INTO Faculties (FacultyName, DeanName, ContactEmail)
+        $stmt = $conn->prepare("INSERT INTO Faculties (Faculty_Name, Contact_Email)
                                 VALUES (?, ?, ?)");
         $stmt->execute([
-            $data['FacultyName'],
-            $data['DeanName'],
-            $data['ContactEmail']
+            $data['Faculty_Name'],
+            $data['Contact_Email']
         ]);
 
         echo json_encode(["message" => "Faculty created"]);
@@ -30,14 +29,13 @@ switch ($method) {
         $data = json_decode(file_get_contents("php://input"), true);
 
         $stmt = $conn->prepare("UPDATE Faculties 
-                                SET FacultyName=?, DeanName=?, ContactEmail=? 
+                                SET Faculty_Name=?, Contact_Email=? 
                                 WHERE FacultyID=?");
 
         $stmt->execute([
-            $data['FacultyName'],
-            $data['DeanName'],
-            $data['ContactEmail'],
-            $data['FacultyID']
+            $data['Faculty_Name'],
+            $data['Contact_Email'],
+            $data['Faculty_ID']
         ]);
 
         echo json_encode(["message" => "Faculty updated"]);
