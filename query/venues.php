@@ -46,7 +46,7 @@ switch ($method) {
     case "DELETE":
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $conn->prepare("DELETE FROM Examination_Venues WHERE VenueID=?");
+        $stmt = $conn->prepare("DELETE FROM Examination_Venues WHERE Venue_ID=?");
         $stmt->execute([$data['Venue_ID']]);
 
         echo json_encode(["message" => "Venue deleted"]);

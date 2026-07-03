@@ -16,9 +16,9 @@ switch ($method) {
         $data = json_decode(file_get_contents("php://input"), true);
 
         $stmt = $conn->prepare("INSERT INTO Faculties (Faculty_Name)
-                                VALUES (?, ?, ?)");
+                                VALUES (?)");
         $stmt->execute([
-            $data['Faculty_Name']
+            $data['faculty_name']
         ]);
 
         echo json_encode(["message" => "Faculty created"]);

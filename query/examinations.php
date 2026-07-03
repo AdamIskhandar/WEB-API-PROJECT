@@ -22,7 +22,7 @@ switch ($method) {
 
         $stmt = $conn->prepare("
             INSERT INTO Examinations 
-            (Course_ID, Venue_ID, Exam_Date, Start_Time, End_Time)
+            (Course_ID, Venue_ID, Exam_Date, Start_Time, End_Time, Created_by)
             VALUES (?, ?, ?, ?, ?, ?)
         ");
 
@@ -31,7 +31,8 @@ switch ($method) {
             $data['Venue_ID'],
             $data['Exam_Date'],
             $data['Start_Time'],
-            $data['End_Time']
+            $data['End_Time'],
+            $data['Created_by'],
         ]);
 
         echo json_encode(["message" => "Exam scheduled successfully"]);

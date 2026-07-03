@@ -3,7 +3,7 @@ $host = "localhost";
 $dbname = "exam_management_system";
 $username = "root";
 $password = "";
-$port = 3306;
+$port = 3307;
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $username, $password);
