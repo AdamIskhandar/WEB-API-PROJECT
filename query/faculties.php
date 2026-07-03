@@ -15,11 +15,10 @@ switch ($method) {
     case "POST":
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $conn->prepare("INSERT INTO Faculties (Faculty_Name, Contact_Email)
+        $stmt = $conn->prepare("INSERT INTO Faculties (Faculty_Name)
                                 VALUES (?, ?, ?)");
         $stmt->execute([
-            $data['Faculty_Name'],
-            $data['Contact_Email']
+            $data['Faculty_Name']
         ]);
 
         echo json_encode(["message" => "Faculty created"]);
@@ -29,13 +28,12 @@ switch ($method) {
         $data = json_decode(file_get_contents("php://input"), true);
 
         $stmt = $conn->prepare("UPDATE Faculties 
-                                SET Faculty_Name=?, Contact_Email=? 
-                                WHERE FacultyID=?");
+                                SET faculty_name=?
+                                WHERE faculty_id=?");
 
         $stmt->execute([
-            $data['Faculty_Name'],
-            $data['Contact_Email'],
-            $data['Faculty_ID']
+            $data['faculty_name'],
+            $data['faculty_id']
         ]);
 
         echo json_encode(["message" => "Faculty updated"]);
@@ -44,8 +42,8 @@ switch ($method) {
     case "DELETE":
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $conn->prepare("DELETE FROM Faculties WHERE FacultyID=?");
-        $stmt->execute([$data['FacultyID']]);
+        $stmt = $conn->prepare("DELETE FROM Faculties WHERE Faculty_ID=?");
+        $stmt->execute([$data['Faculty_ID']]);
 
         echo json_encode(["message" => "Faculty deleted"]);
         break;

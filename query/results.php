@@ -18,12 +18,12 @@ if ($method == "GET") {
 
 if ($method == "POST") {
     $stmt = $conn->prepare("
-        INSERT INTO Results (student_id, exam_id, marks_obtained, grade, published_at)
+        INSERT INTO Results (user_id, exam_id, marks_obtained, grade, published_at)
         VALUES (?, ?, ?, ?, ?)
     ");
 
     $stmt->execute([
-        $data['student_id'],
+        $data['user_id'],
         $data['exam_id'],
         $data['marks_obtained'],
         $data['grade'],
@@ -36,12 +36,12 @@ if ($method == "POST") {
 if ($method == "PUT") {
     $stmt = $conn->prepare("
         UPDATE Results
-        SET student_id=?, exam_id=?, marks_obtained=?, grade=?, published_at=?
+        SET user_id=?, exam_id=?, marks_obtained=?, grade=?, published_at=?
         WHERE result_id=?
     ");
 
     $stmt->execute([
-        $data['student_id'],
+        $data['user_id'],
         $data['exam_id'],
         $data['marks_obtained'],
         $data['grade'],

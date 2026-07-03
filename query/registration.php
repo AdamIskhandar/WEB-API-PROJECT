@@ -22,6 +22,7 @@ if ($method == "GET") {
 if ($method == "POST") {
 
     $stmt = $conn->prepare("
+
         INSERT INTO Student_Course_Registration 
         (user_id, course_id, registration_date)
         VALUES (?, ?, ?)
@@ -43,6 +44,7 @@ if ($method == "PUT") {
 
     $stmt = $conn->prepare("
         UPDATE Student_Course_Registration
+
         SET user_id=?,
             course_id=?,
             registration_date=?
@@ -75,4 +77,3 @@ if ($method == "DELETE") {
 
     echo json_encode(["message" => "Registration deleted"]);
 }
-?>
