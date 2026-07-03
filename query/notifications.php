@@ -1,124 +1,120 @@
 <?php
 header("Content-Type: application/json");
-include "db.php";
+require "db.php";
 
-$method=$_SERVER['REQUEST_METHOD'];
+$method = $_SERVER['REQUEST_METHOD'];
 
-switch($method){
+switch ($method) {
 
-// ================= READ =================
-case "GET":
+    // ================= READ =================
+    case "GET":
 
-    if(isset($_GET['id'])){
+        if(isset($_GET['id'])){
 
-        $id=intval($_GET['id']);
+            $stmt = $pdo->prepare("
+                SELECT *
+                FROM notifications
+                WHERE notification_id=?
+            ");
 
-        $result=$conn->query("SELECT * FROM notifications
-                              WHERE notification_id=$id");
+            $stmt->execute([$_GET['id']]);
 
-        echo json_encode($result->fetch_assoc());
+            echo json_encode($stmt->fetch(PDO::FETCH_ASSOC));
 
-    }else{
+        }else{
 
-        $result=$conn->query("SELECT * FROM notifications");
+            $stmt = $pdo->query("
+                SELECT *
+                FROM notifications
+                ORDER BY created_at DESC
+            ");
 
-        $data=[];
+            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
 
-        while($row=$result->fetch_assoc()){
-            $data[]=$row;
         }
 
-        echo json_encode($data);
-    }
+    break;
 
-break;
+    // ================= CREATE =================
+    case "POST":
 
+        $data = json_decode(file_get_contents("php://input"), true);
 
-// ================= CREATE =================
-case "POST":
+        $stmt = $pdo->prepare("
+            INSERT INTO notifications
+            (user_id,title,message,is_read)
+            VALUES (?,?,?,?)
+        ");
 
-    $data=json_decode(file_get_contents("php://input"),true);
+        $stmt->execute([
+            $data['user_id'],
+            $data['title'],
+            $data['message'],
+            $data['is_read']
+        ]);
 
-    $user_id=$data['user_id'];
-    $title=$data['title'];
-    $message=$data['message'];
-
-    $stmt=$conn->prepare("INSERT INTO notifications(user_id,title,message)
-                          VALUES(?,?,?)");
-
-    $stmt->bind_param("iss",$user_id,$title,$message);
-
-    if($stmt->execute()){
         echo json_encode([
-            "status"=>true,
+            "status"=>"success",
             "message"=>"Notification created"
         ]);
-    }else{
-        echo json_encode([
-            "status"=>false,
-            "message"=>$stmt->error
+
+    break;
+
+    // ================= UPDATE =================
+    case "PUT":
+
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $stmt = $pdo->prepare("
+            UPDATE notifications
+            SET
+            user_id=?,
+            title=?,
+            message=?,
+            is_read=?
+            WHERE notification_id=?
+        ");
+
+        $stmt->execute([
+            $data['user_id'],
+            $data['title'],
+            $data['message'],
+            $data['is_read'],
+            $data['notification_id']
         ]);
-    }
 
-break;
-
-
-// ================= UPDATE =================
-case "PUT":
-
-    $data=json_decode(file_get_contents("php://input"),true);
-
-    $id=$data['notification_id'];
-    $title=$data['title'];
-    $message=$data['message'];
-    $is_read=$data['is_read'];
-
-    $stmt=$conn->prepare("UPDATE notifications
-                          SET title=?,message=?,is_read=?
-                          WHERE notification_id=?");
-
-    $stmt->bind_param("ssii",$title,$message,$is_read,$id);
-
-    if($stmt->execute()){
         echo json_encode([
-            "status"=>true,
+            "status"=>"success",
             "message"=>"Notification updated"
         ]);
-    }else{
-        echo json_encode([
-            "status"=>false,
-            "message"=>$stmt->error
+
+    break;
+
+    // ================= DELETE =================
+    case "DELETE":
+
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $stmt = $pdo->prepare("
+            DELETE FROM notifications
+            WHERE notification_id=?
+        ");
+
+        $stmt->execute([
+            $data['notification_id']
         ]);
-    }
 
-break;
-
-
-// ================= DELETE =================
-case "DELETE":
-
-    parse_str($_SERVER['QUERY_STRING'],$query);
-
-    $id=$query['id'];
-
-    $stmt=$conn->prepare("DELETE FROM notifications
-                          WHERE notification_id=?");
-
-    $stmt->bind_param("i",$id);
-
-    if($stmt->execute()){
         echo json_encode([
-            "status"=>true,
+            "status"=>"success",
             "message"=>"Notification deleted"
         ]);
-    }else{
+
+    break;
+
+    default:
         echo json_encode([
-            "status"=>false,
-            "message"=>$stmt->error
+            "status"=>"error",
+            "message"=>"Invalid request"
         ]);
-    }
-
-break;
-
 }
 ?>
