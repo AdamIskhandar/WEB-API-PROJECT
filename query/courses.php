@@ -1,5 +1,5 @@
 <?php
-require_once "config/db.php";
+require_once __DIR__ . "/../config/db.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 $method = $_SERVER['REQUEST_METHOD'];
@@ -18,7 +18,7 @@ if ($method == "GET") {
 
 if ($method == "POST") {
     $stmt = $conn->prepare("
-        INSERT INTO Courses (course_code, course_name, credit_hours, faculty_id, lecturer_id)
+        INSERT INTO Courses (course_code, course_name, credit_hours, faculty_id, user_id)
         VALUES (?, ?, ?, ?, ?)
     ");
 
@@ -27,7 +27,7 @@ if ($method == "POST") {
         $data['course_name'],
         $data['credit_hours'],
         $data['faculty_id'],
-        $data['lecturer_id']
+        $data['user_id']
     ]);
 
     echo json_encode(["message" => "Course created"]);
@@ -36,7 +36,7 @@ if ($method == "POST") {
 if ($method == "PUT") {
     $stmt = $conn->prepare("
         UPDATE Courses 
-        SET course_code=?, course_name=?, credit_hours=?, faculty_id=?, lecturer_id=?
+        SET course_code=?, course_name=?, credit_hours=?, faculty_id=?, user_id=?
         WHERE course_id=?
     ");
 
@@ -45,7 +45,7 @@ if ($method == "PUT") {
         $data['course_name'],
         $data['credit_hours'],
         $data['faculty_id'],
-        $data['lecturer_id'],
+        $data['user_id'],
         $data['course_id']
     ]);
 

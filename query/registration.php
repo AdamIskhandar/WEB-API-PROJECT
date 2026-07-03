@@ -16,42 +16,63 @@ if ($method == "GET") {
     }
 }
 
+/* =========================
+   INSERT
+========================= */
 if ($method == "POST") {
+
     $stmt = $conn->prepare("
-        INSERT INTO Student_Course_Registration (student_id, course_id, semester)
+        INSERT INTO Student_Course_Registration 
+        (user_id, course_id, registration_date)
         VALUES (?, ?, ?)
     ");
 
     $stmt->execute([
-        $data['student_id'],
+        $data['user_id'],
         $data['course_id'],
-        $data['semester']
+        $data['registration_date']
     ]);
 
     echo json_encode(["message" => "Registration created"]);
 }
 
+/* =========================
+   UPDATE
+========================= */
 if ($method == "PUT") {
+
     $stmt = $conn->prepare("
         UPDATE Student_Course_Registration
-        SET student_id=?, course_id=?, semester=?
+        SET user_id=?,
+            course_id=?,
+            registration_date=?
         WHERE registration_id=?
     ");
 
     $stmt->execute([
-        $data['student_id'],
+        $data['user_id'],
         $data['course_id'],
-        $data['semester'],
+        $data['registration_date'],
         $data['registration_id']
     ]);
 
     echo json_encode(["message" => "Registration updated"]);
 }
 
+/* =========================
+   DELETE
+========================= */
 if ($method == "DELETE") {
+
     $id = $_GET['id'];
-    $stmt = $conn->prepare("DELETE FROM Student_Course_Registration WHERE registration_id=?");
+
+    $stmt = $conn->prepare("
+        DELETE FROM Student_Course_Registration 
+        WHERE registration_id=?
+    ");
+
     $stmt->execute([$id]);
 
     echo json_encode(["message" => "Registration deleted"]);
 }
+?>
