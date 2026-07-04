@@ -1,8 +1,11 @@
 <?php
 require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../middleware/authMiddleware.php";
 
 header("Content-Type: application/json");
 $method = $_SERVER['REQUEST_METHOD'];
+
+$user = authenticate();
 
 switch ($method) {
 

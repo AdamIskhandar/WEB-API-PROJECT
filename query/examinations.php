@@ -1,8 +1,12 @@
 <?php
+
 require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../middleware/authMiddleware.php";
 
 header("Content-Type: application/json");
 $method = $_SERVER['REQUEST_METHOD'];
+
+$user = authenticate();
 
 switch ($method) {
 
@@ -14,7 +18,10 @@ switch ($method) {
             JOIN Examination_venues v ON e.Venue_ID = v.Venue_ID
         ");
         $stmt->execute();
-        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        echo json_encode([
+            "user" => $user,
+            "data" => $stmt->fetchAll(PDO::FETCH_ASSOC)
+        ]);
         break;
 
     case "POST":
