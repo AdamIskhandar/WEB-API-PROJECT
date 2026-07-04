@@ -1,4 +1,6 @@
 <?php
+header("Content-Type: application/json");
+
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../middleware/authMiddleware.php";
 
@@ -7,76 +9,157 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 $user = authenticate();
 
-if ($method == "GET") {
+switch ($method) {
 
-    if (isset($_GET['id'])) {
-        $stmt = $conn->prepare("SELECT * FROM Student_Course_Registration WHERE registration_id=?");
-        $stmt->execute([$_GET['id']]);
-        echo json_encode($stmt->fetch());
-    } else {
-        $stmt = $conn->query("SELECT * FROM Student_Course_Registration");
-        echo json_encode($stmt->fetchAll());
-    }
-}
+    // ================= READ + FILTER =================
+    case "GET":
 
-/* =========================
-   INSERT
-========================= */
-if ($method == "POST") {
+        // Get registration by ID
+        if (isset($_GET['id'])) {
 
-    $stmt = $conn->prepare("
+            $stmt = $conn->prepare("
+                SELECT *
+                FROM Student_Course_Registration
+                WHERE registration_id = ?
+            ");
 
-        INSERT INTO Student_Course_Registration 
-        (user_id, course_id, registration_date)
-        VALUES (?, ?, ?)
-    ");
+            $stmt->execute([$_GET['id']]);
 
-    $stmt->execute([
-        $data['user_id'],
-        $data['course_id'],
-        $data['registration_date']
-    ]);
+            echo json_encode($stmt->fetch(PDO::FETCH_ASSOC));
+        }
 
-    echo json_encode(["message" => "Registration created"]);
-}
+        // Filter by User ID
+        elseif (isset($_GET['user_id'])) {
 
-/* =========================
-   UPDATE
-========================= */
-if ($method == "PUT") {
+            $stmt = $conn->prepare("
+                SELECT *
+                FROM Student_Course_Registration
+                WHERE user_id = ?
+            ");
 
-    $stmt = $conn->prepare("
-        UPDATE Student_Course_Registration
+            $stmt->execute([$_GET['user_id']]);
 
-        SET user_id=?,
-            course_id=?,
-            registration_date=?
-        WHERE registration_id=?
-    ");
+            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        }
 
-    $stmt->execute([
-        $data['user_id'],
-        $data['course_id'],
-        $data['registration_date'],
-        $data['registration_id']
-    ]);
+        // Filter by Course ID
+        elseif (isset($_GET['course_id'])) {
 
-    echo json_encode(["message" => "Registration updated"]);
-}
+            $stmt = $conn->prepare("
+                SELECT *
+                FROM Student_Course_Registration
+                WHERE course_id = ?
+            ");
 
-/* =========================
-   DELETE
-========================= */
-if ($method == "DELETE") {
+            $stmt->execute([$_GET['course_id']]);
 
-    $id = $_GET['id'];
+            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        }
 
-    $stmt = $conn->prepare("
-        DELETE FROM Student_Course_Registration 
-        WHERE registration_id=?
-    ");
+        // Filter by Registration Date
+        elseif (isset($_GET['registration_date'])) {
 
-    $stmt->execute([$id]);
+            $stmt = $conn->prepare("
+                SELECT *
+                FROM Student_Course_Registration
+                WHERE registration_date = ?
+            ");
 
-    echo json_encode(["message" => "Registration deleted"]);
+            $stmt->execute([$_GET['registration_date']]);
+
+            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        }
+
+        // Get all registrations
+        else {
+
+            $stmt = $conn->prepare("
+                SELECT *
+                FROM Student_Course_Registration
+            ");
+
+            $stmt->execute();
+
+            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        }
+
+        break;
+
+    // ================= CREATE =================
+    case "POST":
+
+        $stmt = $conn->prepare("
+            INSERT INTO Student_Course_Registration
+            (user_id, course_id, registration_date)
+            VALUES (?, ?, ?)
+        ");
+
+        $stmt->execute([
+            $data['user_id'],
+            $data['course_id'],
+            $data['registration_date']
+        ]);
+
+        echo json_encode([
+            "status" => "success",
+            "message" => "Registration created"
+        ]);
+
+        break;
+
+    // ================= UPDATE =================
+    case "PUT":
+
+        $stmt = $conn->prepare("
+            UPDATE Student_Course_Registration
+            SET
+                user_id = ?,
+                course_id = ?,
+                registration_date = ?
+            WHERE registration_id = ?
+        ");
+
+        $stmt->execute([
+            $data['user_id'],
+            $data['course_id'],
+            $data['registration_date'],
+            $data['registration_id']
+        ]);
+
+        echo json_encode([
+            "status" => "success",
+            "message" => "Registration updated"
+        ]);
+
+        break;
+
+    // ================= DELETE =================
+    case "DELETE":
+
+        $stmt = $conn->prepare("
+            DELETE FROM Student_Course_Registration
+            WHERE registration_id = ?
+        ");
+
+        $stmt->execute([
+            $data['registration_id']
+        ]);
+
+        echo json_encode([
+            "status" => "success",
+            "message" => "Registration deleted"
+        ]);
+
+        break;
+
+    default:
+
+        http_response_code(405);
+
+        echo json_encode([
+            "status" => "error",
+            "message" => "Invalid request method"
+        ]);
+
+        break;
 }
