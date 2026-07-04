@@ -1,26 +1,61 @@
 <?php
 header("Content-Type: application/json");
+
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../middleware/authMiddleware.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 
+// Authenticate user
 $user = authenticate();
 
 switch ($method) {
 
-    // ================= READ =================
+    // ================= READ + FILTER =================
     case "GET":
 
-        if (isset($_GET['id'])) {
+        // Get user by ID
+        if (isset($_GET['user_id'])) {
 
-            $stmt = $conn->prepare("SELECT * FROM users WHERE user_id=?");
-            $stmt->execute([$_GET['id']]);
+            $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+            $stmt->execute([$_GET['user_id']]);
 
             echo json_encode($stmt->fetch(PDO::FETCH_ASSOC));
-        } else {
+        }
 
-            $stmt = $conn->query("SELECT * FROM users");
+        // Filter by role
+        elseif (isset($_GET['role'])) {
+
+            $stmt = $conn->prepare("SELECT * FROM users WHERE role = ?");
+            $stmt->execute([$_GET['role']]);
+
+            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        }
+
+        // Filter by faculty
+        elseif (isset($_GET['faculty_id'])) {
+
+            $stmt = $conn->prepare("SELECT * FROM users WHERE faculty_id = ?");
+            $stmt->execute([$_GET['faculty_id']]);
+
+            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        }
+
+        // Filter by name
+        elseif (isset($_GET['name'])) {
+
+            $stmt = $conn->prepare("SELECT * FROM users WHERE name LIKE ?");
+            $stmt->execute(["%" . $_GET['name'] . "%"]);
+
+            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        }
+
+        // Get all users
+        else {
+
+            $stmt = $conn->prepare("SELECT * FROM users");
+            $stmt->execute();
+
             echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         }
 
@@ -33,8 +68,8 @@ switch ($method) {
 
         $stmt = $conn->prepare("
             INSERT INTO users
-            (name,email,password_hash,role,faculty_id)
-            VALUES (?,?,?,?,?)
+            (name, email, password_hash, role, faculty_id)
+            VALUES (?, ?, ?, ?, ?)
         ");
 
         $stmt->execute([
@@ -60,11 +95,11 @@ switch ($method) {
         $stmt = $conn->prepare("
             UPDATE users
             SET
-            name=?,
-            email=?,
-            role=?,
-            faculty_id=?
-            WHERE user_id=?
+                name = ?,
+                email = ?,
+                role = ?,
+                faculty_id = ?
+            WHERE user_id = ?
         ");
 
         $stmt->execute([
@@ -87,8 +122,10 @@ switch ($method) {
 
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $stmt = $conn->prepare("DELETE FROM users WHERE user_id=?");
-        $stmt->execute([$data['user_id']]);
+        $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ?");
+        $stmt->execute([
+            $data['user_id']
+        ]);
 
         echo json_encode([
             "status" => "success",
@@ -98,8 +135,13 @@ switch ($method) {
         break;
 
     default:
+
+        http_response_code(405);
+
         echo json_encode([
             "status" => "error",
-            "message" => "Invalid request"
+            "message" => "Invalid request method"
         ]);
+
+        break;
 }
