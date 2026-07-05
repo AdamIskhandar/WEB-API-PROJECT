@@ -1,0 +1,110 @@
+{
+  "info": {
+    "_postman_id": "eb257f07-2ad2-413f-a4b4-0a4b43cef53f",
+    "name": "auth web api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "23159495"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"Name\": \"Adam\",\r\n  \"Email\": \"adam.yusof@university.edu\",\r\n  \"Password\": \"SecurePass123\",\r\n  \"Role\": \"Lecturer\",\r\n  \"FacultyID\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost/exam_management_system/auth/register.php",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "exam_management_system",
+                "auth",
+                "register.php"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"adam.yusof@university.edu\",\r\n  \"password\": \"SecurePass123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost/exam_management_system/auth/login.php",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "exam_management_system",
+                "auth",
+                "login.php"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "QR CODE",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJleGFtLWFwaSIsImlhdCI6MTc4MzE3OTA4OSwiZXhwIjoxNzgzMTgyNjg5LCJkYXRhIjp7ImlkIjo4LCJlbWFpbCI6ImFkYW0ueXVzb2ZAdW5pdmVyc2l0eS5lZHUiLCJyb2xlIjoiTGVjdHVyZXIifX0.Sa789O6liw3QA0yyKywo6OhH6UJFTar_tkQk33mLJcU",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"examId\": 101,\r\n  \"studentId\": \"111111111\",\r\n  \"course\": \"Web Development\",\r\n  \"date\": \"2026-01-20\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost/exam_management_system/qr_generate.php",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "path": [
+            "exam_management_system",
+            "qr_generate.php"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

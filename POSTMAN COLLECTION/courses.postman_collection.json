@@ -1,0 +1,146 @@
+{
+  "info": {
+    "_postman_id": "44033630-7ea0-425b-bd7a-8f397369c227",
+    "name": "courses",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "23159495"
+  },
+  "item": [
+    {
+      "name": "courses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost/exam_management_system/query/courses.php",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "path": [
+            "exam_management_system",
+            "query",
+            "courses.php"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "courses",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": 1,\r\n    \"price\": 40\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost/WEB-API-PROJECT/query/courses.php",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "path": [
+            "WEB-API-PROJECT",
+            "query",
+            "courses.php"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "courses",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJleGFtLWFwaSIsImlhdCI6MTc4MzI0MzI5NywiZXhwIjoxNzgzMjQ2ODk3LCJkYXRhIjp7ImlkIjo4LCJlbWFpbCI6ImFkYW0ueXVzb2ZAdW5pdmVyc2l0eS5lZHUiLCJyb2xlIjoiTGVjdHVyZXIifX0.GlJtWpnRGi8pDIhAJyIQk4ydtJLkhoQzarW97ea5F9M",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"course_code\": \"ART01\",\r\n    \"course_name\": \"ARTS AND PHOTOGRAPHY\",\r\n    \"credit_hours\": 3,\r\n    \"faculty_id\": 2,\r\n    \"user_id\": 8,\r\n    \"course_id\": 6\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost/exam_management_system/query/courses.php",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "path": [
+            "exam_management_system",
+            "query",
+            "courses.php"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "courses",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJleGFtLWFwaSIsImlhdCI6MTc4MzI0MzI5NywiZXhwIjoxNzgzMjQ2ODk3LCJkYXRhIjp7ImlkIjo4LCJlbWFpbCI6ImFkYW0ueXVzb2ZAdW5pdmVyc2l0eS5lZHUiLCJyb2xlIjoiTGVjdHVyZXIifX0.GlJtWpnRGi8pDIhAJyIQk4ydtJLkhoQzarW97ea5F9M",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost/WEB-API-PROJECT/query/courses.php",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "path": [
+            "WEB-API-PROJECT",
+            "query",
+            "courses.php"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
