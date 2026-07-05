@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Schedule</title>
+    <link rel="stylesheet" href="assets/lecturer.css">
+</head>
+<body data-page="exams">
+<div class="layout">
+<nav class="navbar" id="navbar">
+    <a class="brand" href="index.html"><div class="logo">L</div><span class="brand-text">Lecturer Workspace</span></a>
+    <div class="nav">
+        <a href="index.html" data-nav="dashboard">Overview</a>
+        <a href="courses.html" data-nav="courses">Courses</a>
+        <a href="exams.html" data-nav="exams">Exam Schedule</a>
+        <a href="results.html" data-nav="results">Results</a>
+        <a href="notifications.html" data-nav="notifications">Notifications</a>
+    </div>
+    <div class="nav-right">
+        <span class="user-chip" id="userChip">Loading...</span>
+        <button class="btn secondary small" onclick="logout()">Logout</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+</nav>
+<main class="main">
+    <div id="alert" class="alert"></div>
+    <section class="topbar">
+    <div><div class="eyebrow">Exam Management System</div><h2>Exam Schedule</h2><p>Manage examination sessions.</p></div>
+    <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button></div>
+</section>
+<div class="filter-bar" id="examFilter">
+    <h4>Filter Exams</h4>
+    <div class="filter-row">
+        <div class="filter-field"><label>Course ID</label><input data-filter="Course_ID" type="number" placeholder="e.g. 2"></div>
+        <div class="filter-field"><label>Venue ID</label><input data-filter="Venue_ID" type="number" placeholder="e.g. 1"></div>
+        <div class="filter-field"><label>Exam Date</label><input data-filter="Exam_Date" type="date"></div>
+        <div class="filter-actions"><button class="btn outline small" data-clear-filter>Clear</button></div>
+    </div>
+</div>
+<section class="grid two-col section">
+    <div class="card">
+        <div class="section-head"><div><h3>Schedule Exam</h3><p>Link a course and venue to create an exam session.</p></div></div>
+        <form id="examForm" class="form-grid">
+            <label>Course ID<input name="Course_ID" type="number" required></label>
+            <label>Venue ID<input name="Venue_ID" type="number" required></label>
+            <label>Exam Date<input name="Exam_Date" type="date" required></label>
+            <label>Start Time<input name="Start_Time" type="time" required></label>
+            <label class="full">End Time<input name="End_Time" type="time" required></label>
+            <button class="btn full" type="submit">Schedule Exam</button>
+        </form>
+    </div>
+    <div class="card"><div class="section-head"><div><h3>Exam Schedule</h3><p>Scheduled exam records.</p></div></div><div id="examTable"></div></div>
+</section>
+<section class="grid section">
+    <div class="card"><div class="section-head"><div><h3>Available Venues</h3><p>All available examination venues.</p></div></div><div id="venueTable"></div></div>
+</section>
+</main>
+</div>
+<script src="assets/lecturer.js"></script>
+</body>
+</html>

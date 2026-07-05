@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" href="assets/admin.css">
+</head>
+<body data-page="courses">
+<div class="layout">
+<nav class="navbar" id="navbar">
+    <a class="brand" href="index.html"><div class="logo">A</div><span class="brand-text">Admin Control</span></a>
+    <div class="nav">
+        <a href="index.html" data-nav="dashboard">Overview</a>
+        <a href="users.html" data-nav="users">Users</a>
+        <a href="courses.html" data-nav="courses">Courses</a>
+        <a href="venues.html" data-nav="venues">Venues</a>
+        <a href="exams.html" data-nav="exams">Exam Schedules</a>
+        <a href="registrations.html" data-nav="registrations">Registrations</a>
+        <a href="results.html" data-nav="results">Results</a>
+        <a href="notifications.html" data-nav="notifications">Notifications</a>
+    </div>
+    <div class="nav-right">
+        <span class="user-chip" id="userChip">Loading...</span>
+        <button class="btn secondary small" onclick="logout()">Logout</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+</nav>
+<main class="main">
+    <div id="alert" class="alert"></div>
+    <section class="topbar">
+    <div><div class="eyebrow">Exam Scheduling &amp; Result Management</div><h2>Courses</h2><p>Set up course records needed for examinations.</p></div>
+    <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button></div>
+</section>
+<div class="filter-bar" id="courseFilter">
+    <h4>Filter Courses</h4>
+    <div class="filter-row">
+        <div class="filter-field"><label>Course Code</label><input data-filter="course_code" placeholder="e.g. CS101"></div>
+        <div class="filter-field"><label>Course Name</label><input data-filter="course_name" placeholder="Search name..."></div>
+        <div class="filter-field"><label>Faculty ID</label><input data-filter="faculty_id" type="number" placeholder="e.g. 1"></div>
+        <div class="filter-field"><label>Lecturer User ID</label><input data-filter="user_id" type="number" placeholder="e.g. 3"></div>
+        <div class="filter-actions"><button class="btn outline small" data-clear-filter>Clear</button></div>
+    </div>
+</div>
+<section class="grid two-col section">
+    <div class="card">
+        <div class="section-head"><div><h3>Create Course</h3><p>Courses are used when scheduling exams and registering students.</p></div></div>
+        <form id="courseForm" class="form-grid">
+            <label>Course Code<input name="course_code" required></label>
+            <label>Credit Hours<input name="credit_hours" type="number" required></label>
+            <label class="full">Course Name<input name="course_name" required></label>
+            <label>Faculty ID<input name="faculty_id" type="number" required></label>
+            <label>Lecturer User ID<input name="user_id" type="number" required></label>
+            <button class="btn full" type="submit">Create Course</button>
+        </form>
+    </div>
+    <div class="card"><div class="section-head"><div><h3>Courses</h3><p>Course records returned by the API.</p></div></div><div id="courseTable"></div></div>
+</section>
+</main>
+</div>
+<script src="assets/admin.js"></script>
+</body>
+</html>

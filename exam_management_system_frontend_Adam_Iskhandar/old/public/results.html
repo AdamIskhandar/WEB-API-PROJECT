@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Results</title>
+    <link rel="stylesheet" href="assets/student.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand"><div class="logo">S</div><h1>Student<br>Portal</h1></div>
+            <nav class="nav">
+                <a href="student.html">Overview</a>
+                <a href="timetable.html">Timetable</a>
+                <a href="results.html">Results</a>
+                <a href="registrations.html">Registrations</a>
+                <a href="notifications.html">Notifications</a>
+            </nav>
+            <div class="user-mini" id="userMini">Loading user...</div>
+        </aside>
+
+        <main class="main">
+            <div id="alert" class="alert"></div>
+            <section class="topbar">
+                <div>
+                    <div class="eyebrow">Student</div>
+                    <h2>My Results</h2>
+                    <p>View published marks and grades for your examinations.</p>
+                </div>
+                <div class="actions">
+                    <button class="btn secondary" onclick="loadAll()">Refresh</button>
+                    <button class="btn danger" onclick="logout()">Logout</button>
+                </div>
+            </section>
+
+            <section class="card section">
+                <div class="section-head">
+                    <div>
+                        <h3>Published Examination Results</h3>
+                        <p>Only results linked to your student account are shown.</p>
+                    </div>
+                    <span class="pill">Results</span>
+                </div>
+                <div id="resultTable"></div>
+            </section>
+        </main>
+    </div>
+    <script src="assets/student.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registrations</title>
+    <link rel="stylesheet" href="assets/student.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand"><div class="logo">S</div><h1>Student<br>Portal</h1></div>
+            <nav class="nav">
+                <a href="student.html">Overview</a>
+                <a href="timetable.html">Timetable</a>
+                <a href="results.html">Results</a>
+                <a href="registrations.html">Registrations</a>
+                <a href="notifications.html">Notifications</a>
+            </nav>
+            <div class="user-mini" id="userMini">Loading user...</div>
+        </aside>
+
+        <main class="main">
+            <div id="alert" class="alert"></div>
+            <section class="topbar">
+                <div>
+                    <div class="eyebrow">Student</div>
+                    <h2>Course Registrations</h2>
+                    <p>Register for a course and view your existing course registrations.</p>
+                </div>
+                <div class="actions">
+                    <button class="btn secondary" onclick="loadAll()">Refresh</button>
+                    <button class="btn danger" onclick="logout()">Logout</button>
+                </div>
+            </section>
+
+            <section class="grid two-col section">
+                <div class="card">
+                    <div class="section-head">
+                        <div>
+                            <h3>My Course Registrations</h3>
+                            <p>Courses registered under your student account.</p>
+                        </div>
+                    </div>
+                    <div id="registrationTable"></div>
+                </div>
+                <div class="card">
+                    <div class="section-head">
+                        <div>
+                            <h3>Register Course</h3>
+                            <p>Enter the Course ID from the available course list.</p>
+                        </div>
+                    </div>
+                    <form id="registrationForm">
+                        <label>Course ID<input type="number" name="course_id" placeholder="Example: 2" required></label>
+                        <button class="btn" type="submit">Register Course</button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="card section">
+                <div class="section-head">
+                    <div>
+                        <h3>Available Courses</h3>
+                        <p>Reference list for course registration.</p>
+                    </div>
+                    <span class="pill">Courses</span>
+                </div>
+                <div id="courseTable"></div>
+            </section>
+        </main>
+    </div>
+    <script src="assets/student.js"></script>
+</body>
+</html>

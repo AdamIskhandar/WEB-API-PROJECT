@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" href="assets/lecturer.css">
+</head>
+<body data-page="courses">
+<div class="layout">
+<nav class="navbar" id="navbar">
+    <a class="brand" href="index.html"><div class="logo">L</div><span class="brand-text">Lecturer Workspace</span></a>
+    <div class="nav">
+        <a href="index.html" data-nav="dashboard">Overview</a>
+        <a href="courses.html" data-nav="courses">Courses</a>
+        <a href="exams.html" data-nav="exams">Exam Schedule</a>
+        <a href="results.html" data-nav="results">Results</a>
+        <a href="notifications.html" data-nav="notifications">Notifications</a>
+    </div>
+    <div class="nav-right">
+        <span class="user-chip" id="userChip">Loading...</span>
+        <button class="btn secondary small" onclick="logout()">Logout</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+</nav>
+<main class="main">
+    <div id="alert" class="alert"></div>
+    <section class="topbar">
+    <div><div class="eyebrow">Exam Management System</div><h2>Courses</h2><p>Your assigned course records.</p></div>
+    <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button></div>
+</section>
+<div class="filter-bar" id="courseFilter">
+    <h4>Filter Courses</h4>
+    <div class="filter-row">
+        <div class="filter-field"><label>Course Code</label><input data-filter="course_code" placeholder="e.g. CS101"></div>
+        <div class="filter-field"><label>Course Name</label><input data-filter="course_name" placeholder="Search name..."></div>
+        <div class="filter-actions"><button class="btn outline small" data-clear-filter>Clear</button></div>
+    </div>
+</div>
+<section class="grid section">
+    <div class="card"><div class="section-head"><div><h3>My Courses</h3><p>Courses assigned to your lecturer account.</p></div></div><div id="courseTable"></div></div>
+</section>
+</main>
+</div>
+<script src="assets/lecturer.js"></script>
+</body>
+</html>
