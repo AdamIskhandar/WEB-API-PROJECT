@@ -1,7 +1,7 @@
 <?php
 
 header("Content-Type: application/json");
-require_once __DIR__ . "/../middleware/errorHandler.php.php";
+require_once __DIR__ . "/../middleware/errorHandler.php";
 
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../middleware/authMiddleware.php";
