@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="stylesheet" href="assets/admin.css">
+</head>
+<body data-page="users">
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand"><div class="logo">A</div><h1>Admin<br>Control</h1></div>
+        <nav class="nav">
+            <a href="index.html" data-nav="dashboard">Overview</a><a href="users.html" data-nav="users">Users</a><a href="courses.html" data-nav="courses">Courses</a><a href="venues.html" data-nav="venues">Venues</a><a href="exams.html" data-nav="exams">Exam Schedules</a><a href="registrations.html" data-nav="registrations">Registrations</a><a href="results.html" data-nav="results">Results</a><a href="notifications.html" data-nav="notifications">Notifications</a><a href="qr.html" data-nav="qr">Admission QR</a>
+        </nav>
+        <div class="user-mini" id="userMini">Loading user...</div>
+    </aside>
+    <main class="main">
+        <div id="alert" class="alert"></div>
+        <section class="topbar">
+            <div><div class="eyebrow">Exam Scheduling &amp; Result Management</div><h2>Users</h2><p>Manage role-based user accounts.</p></div>
+            <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button><button class="btn danger" onclick="logout()">Logout</button></div>
+        </section>
+        
+<section class="grid two-col section">
+    <div class="card">
+        <div class="section-head"><div><h3>Create User</h3><p>Add student, lecturer, or admin accounts for role-based access.</p></div></div>
+        <form id="userForm" class="form-grid">
+            <label>Name<input name="name" required></label>
+            <label>Email<input name="email" type="email" required></label>
+            <label>Password<input name="password" type="password" required></label>
+            <label>Role<select name="role"><option value="student">Student</option><option value="lecturer">Lecturer</option><option value="admin">Admin</option></select></label>
+            <label class="full">Faculty ID<input name="faculty_id" type="number" placeholder="Optional"></label>
+            <button class="btn full" type="submit">Create User</button>
+        </form>
+    </div>
+    <div class="card"><div class="section-head"><div><h3>User Records</h3><p>Existing system accounts.</p></div></div><form class="search-box" data-search-module="users"><input type="search" name="q" placeholder="Search users by ID, name, email, role, or faculty"><button class="btn" type="submit">Search</button><button class="btn secondary" type="button" data-clear-search>Clear</button></form><div id="userTable"></div></div>
+</section>
+
+    </main>
+</div>
+<script src="assets/admin.js"></script>
+</body>
+</html>

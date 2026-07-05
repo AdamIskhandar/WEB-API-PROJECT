@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="assets/admin.css">
+</head>
+<body data-page="dashboard">
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand"><div class="logo">A</div><h1>Admin<br>Control</h1></div>
+        <nav class="nav">
+            <a href="index.html" data-nav="dashboard">Overview</a><a href="users.html" data-nav="users">Users</a><a href="courses.html" data-nav="courses">Courses</a><a href="venues.html" data-nav="venues">Venues</a><a href="exams.html" data-nav="exams">Exam Schedules</a><a href="registrations.html" data-nav="registrations">Registrations</a><a href="results.html" data-nav="results">Results</a><a href="notifications.html" data-nav="notifications">Notifications</a><a href="qr.html" data-nav="qr">Admission QR</a>
+        </nav>
+        <div class="user-mini" id="userMini">Loading user...</div>
+    </aside>
+    <main class="main">
+        <div id="alert" class="alert"></div>
+        <section class="topbar">
+            <div><div class="eyebrow">Exam Scheduling &amp; Result Management</div><h2>Admin Dashboard</h2><p>Overview of core admin modules only.</p></div>
+            <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button><button class="btn danger" onclick="logout()">Logout</button></div>
+        </section>
+        
+<section class="grid stats">
+    <div class="card stat"><span>Users</span><strong id="countUsers">0</strong></div>
+    <div class="card stat"><span>Courses</span><strong id="countCourses">0</strong></div>
+    <div class="card stat"><span>Venues</span><strong id="countVenues">0</strong></div>
+    <div class="card stat"><span>Exams</span><strong id="countExams">0</strong></div>
+    <div class="card stat"><span>Registrations</span><strong id="countRegistrations">0</strong></div>
+    <div class="card stat"><span>Results</span><strong id="countResults">0</strong></div>
+    <div class="card stat"><span>Notifications</span><strong id="countNotifications">0</strong></div>
+</section>
+<section class="grid three-col section">
+    <div class="card"><div class="section-head"><div><h3>Exam schedules</h3><p>Create and monitor examination dates, times, courses, and venues.</p></div></div><a class="btn secondary" href="exams.html">Open page</a></div>
+    <div class="card"><div class="section-head"><div><h3>Student records</h3><p>Manage student course registrations and published examination results.</p></div></div><div class="quick-links"><a href="registrations.html">Registrations</a><a href="results.html">Results</a></div></div>
+    <div class="card"><div class="section-head"><div><h3>Notifications</h3><p>View automatic notifications generated from new exam schedules.</p></div></div><a class="btn secondary" href="notifications.html">Open page</a></div>
+</section>
+<section class="grid two-col section">
+    <div class="card"><div class="section-head"><div><h3>Recent Exam Schedules</h3><p>Latest exam schedule records returned by the API.</p></div></div><div id="examTable"></div></div>
+    <div class="card"><div class="section-head"><div><h3>Recent Notifications</h3><p>Latest notification records returned by the API.</p></div></div><div id="notificationTable"></div></div>
+</section>
+
+    </main>
+</div>
+<script src="assets/admin.js"></script>
+</body>
+</html>

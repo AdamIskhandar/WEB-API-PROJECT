@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Courses</title>
+    <link rel="stylesheet" href="assets/admin.css" />
+  </head>
+  <body data-page="courses">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo">A</div>
+          <h1>Admin<br />Control</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html" data-nav="dashboard">Overview</a><a href="users.html" data-nav="users">Users</a><a href="courses.html" data-nav="courses">Courses</a><a href="venues.html" data-nav="venues">Venues</a><a href="exams.html" data-nav="exams">Exam Schedules</a><a href="registrations.html" data-nav="registrations">Registrations</a><a href="results.html" data-nav="results">Results</a><a href="notifications.html" data-nav="notifications">Notifications</a><a href="qr.html" data-nav="qr">Admission QR</a>
+        </nav>
+        <div class="user-mini" id="userMini">Loading user...</div>
+      </aside>
+      <main class="main">
+        <div id="alert" class="alert"></div>
+        <section class="topbar">
+          <div>
+            <div class="eyebrow">Exam Scheduling &amp; Result Management</div>
+            <h2>Courses</h2>
+            <p>Set up course records needed for examinations.</p>
+          </div>
+          <div class="actions">
+            <button class="btn secondary" onclick="refreshPage()">
+              Refresh</button
+            ><button class="btn danger" onclick="logout()">Logout</button>
+          </div>
+        </section>
+
+        <section class="grid two-col section">
+          <div class="card">
+            <div class="section-head">
+              <div>
+                <h3>Create Course</h3>
+                <p>
+                  Courses are used when scheduling exams and registering
+                  students.
+                </p>
+              </div>
+            </div>
+            <form id="courseForm" class="form-grid">
+              <label>Course Code<input name="course_code" required /></label>
+              <label
+                >Credit Hours<input name="credit_hours" type="number" required
+              /></label>
+              <label class="full"
+                >Course Name<input name="course_name" required
+              /></label>
+              <label
+                >Faculty<select
+                  id="courseFacultySelect"
+                  name="faculty_id"
+                  required
+                >
+                  <option value="">Loading faculties...</option>
+                </select></label
+              >
+              <label
+                >Lecturer
+                <input
+                  id="courseLecturerSearch"
+                  list="courseLecturerOptions"
+                  placeholder="Search lecturer name or email"
+                  autocomplete="off"
+                  required
+                />
+                <input id="courseLecturerId" name="lecturer_id" type="hidden" />
+                <datalist id="courseLecturerOptions"></datalist>
+              </label>
+              <button class="btn full" type="submit">Create Course</button>
+            </form>
+          </div>
+          <div class="card">
+            <div class="section-head">
+              <div>
+                <h3>Courses</h3>
+                <p>Course records returned by the API.</p>
+              </div>
+            </div>
+            <form class="search-box" data-search-module="courses">
+              <input
+                type="search"
+                name="q"
+                placeholder="Search courses by ID, code, name, faculty, or lecturer"
+              /><button class="btn" type="submit">Search</button
+              ><button class="btn secondary" type="button" data-clear-search>
+                Clear
+              </button>
+            </form>
+            <div id="courseTable"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="assets/admin.js"></script>
+  </body>
+</html>

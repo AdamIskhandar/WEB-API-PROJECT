@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses</title>
+    <link rel="stylesheet" href="assets/lecturer.css">
+</head>
+<body data-page="courses">
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand"><div class="logo">L</div><h1>Lecturer<br>Workspace</h1></div>
+        <nav class="nav">
+            <a href="index.html" data-nav="dashboard">Overview</a><a href="courses.html" data-nav="courses">Courses</a><a href="exams.html" data-nav="exams">Exam Schedule</a><a href="results.html" data-nav="results">Results</a><a href="notifications.html" data-nav="notifications">Notifications</a>
+        </nav>
+        <div class="user-mini" id="userMini">Loading user...</div>
+    </aside>
+    <main class="main">
+        <div id="alert" class="alert"></div>
+        <section class="topbar">
+            <div><div class="eyebrow">Exam Management System</div><h2>My Courses</h2><p>View assigned course records.</p></div>
+            <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button><button class="btn danger" onclick="logout()">Logout</button></div>
+        </section>
+        <section class="card section">
+    <div class="section-head"><div><h3>My Courses</h3><p>Courses assigned to the logged-in lecturer. Use the Course ID when creating exam schedules.</p></div></div>
+    <form class="search-box" data-search-module="courses">
+        <input type="search" name="q" placeholder="Search courses by code, name, or ID">
+        <button class="btn" type="submit">Search</button>
+        <button class="btn secondary" type="button" data-clear-search>Clear</button>
+    </form>
+    <div id="courseTable"></div>
+</section>
+    </main>
+</div>
+<script src="assets/lecturer.js"></script>
+</body>
+</html>

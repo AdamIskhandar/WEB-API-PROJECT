@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Schedules</title>
+    <link rel="stylesheet" href="assets/admin.css">
+</head>
+<body data-page="exams">
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand"><div class="logo">A</div><h1>Admin<br>Control</h1></div>
+        <nav class="nav">
+            <a href="index.html" data-nav="dashboard">Overview</a><a href="users.html" data-nav="users">Users</a><a href="courses.html" data-nav="courses">Courses</a><a href="venues.html" data-nav="venues">Venues</a><a href="exams.html" data-nav="exams">Exam Schedules</a><a href="registrations.html" data-nav="registrations">Registrations</a><a href="results.html" data-nav="results">Results</a><a href="notifications.html" data-nav="notifications">Notifications</a><a href="qr.html" data-nav="qr">Admission QR</a>
+        </nav>
+        <div class="user-mini" id="userMini">Loading user...</div>
+    </aside>
+    <main class="main">
+        <div id="alert" class="alert"></div>
+        <section class="topbar">
+            <div><div class="eyebrow">Exam Scheduling &amp; Result Management</div><h2>Exam Schedules</h2><p>Manage examination timetable records.</p></div>
+            <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button><button class="btn danger" onclick="logout()">Logout</button></div>
+        </section>
+        
+<section class="grid two-col section">
+    <div class="card">
+        <div class="section-head"><div><h3 id="examFormTitle">Create Exam Schedule</h3><p id="examFormHint">Set the course, venue, date, and time for an examination.</p></div></div>
+        <form id="examForm" class="form-grid">
+            <input type="hidden" name="Exam_ID" id="examId">
+            <label>Course<select name="Course_ID" id="courseSelect" required><option value="">Loading courses...</option></select></label>
+            <label>Venue<select name="Venue_ID" id="venueSelect" required><option value="">Loading venues...</option></select></label>
+            <label>Exam Date<input name="Exam_Date" type="date" required></label>
+            <label>Start Time<input name="Start_Time" type="time" required></label>
+            <label>End Time<input name="End_Time" type="time" required></label>
+            <div class="form-actions full"><button class="btn" id="examSubmitBtn" type="submit">Create Exam</button><button class="btn secondary" id="examCancelBtn" type="button" hidden>Cancel Edit</button></div>
+        </form>
+    </div>
+    <div class="card"><div class="section-head"><div><h3>Exam Schedules</h3><p>All scheduled examinations.</p></div></div><form class="search-box" data-search-module="examinations"><input type="search" name="q" placeholder="Search exam schedules by ID, course, venue, date, or time"><button class="btn" type="submit">Search</button><button class="btn secondary" type="button" data-clear-search>Clear</button></form><div id="examTable"></div></div>
+</section>
+
+    </main>
+</div>
+<script src="assets/admin.js"></script>
+</body>
+</html>

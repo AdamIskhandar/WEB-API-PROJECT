@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Schedule</title>
+    <link rel="stylesheet" href="assets/lecturer.css">
+</head>
+<body data-page="exams">
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand"><div class="logo">L</div><h1>Lecturer<br>Workspace</h1></div>
+        <nav class="nav">
+            <a href="index.html" data-nav="dashboard">Overview</a><a href="courses.html" data-nav="courses">Courses</a><a href="exams.html" data-nav="exams">Exam Schedule</a><a href="results.html" data-nav="results">Results</a><a href="notifications.html" data-nav="notifications">Notifications</a>
+        </nav>
+        <div class="user-mini" id="userMini">Loading user...</div>
+    </aside>
+    <main class="main">
+        <div id="alert" class="alert"></div>
+        <section class="topbar">
+            <div><div class="eyebrow">Exam Management System</div><h2>Exam Schedule</h2><p>Manage examination timetable records.</p></div>
+            <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button><button class="btn danger" onclick="logout()">Logout</button></div>
+        </section>
+        <section class="grid two-col section">
+    <div class="card">
+        <div class="section-head"><div><h3>Create Exam Schedule</h3><p>Set the course, venue, date, and time for an examination. Only your assigned courses are shown.</p></div></div>
+        <form id="examForm" class="form-grid">
+            <label>Course<select name="Course_ID" id="courseSelect" required><option value="">Loading assigned courses...</option></select></label>
+            <label>Venue<select name="Venue_ID" id="venueSelect" required><option value="">Loading venues...</option></select></label>
+            <label>Exam Date<input name="Exam_Date" type="date" required></label>
+            <label>Start Time<input name="Start_Time" type="time" required></label>
+            <label>End Time<input name="End_Time" type="time" required></label>
+            <button class="btn full" type="submit">Create Schedule</button>
+        </form>
+    </div>
+    <div class="card"><div class="section-head"><div><h3>Exam Schedules</h3><p>Only exam schedules created by you are shown.</p></div></div><form class="search-box" data-search-module="examinations"><input type="search" name="q" placeholder="Search exam schedule by course, date, time, or venue"><button class="btn" type="submit">Search</button><button class="btn secondary" type="button" data-clear-search>Clear</button></form><div id="examTable"></div></div>
+</section>
+<section class="card section">
+    <div class="section-head"><div><h3>Venue Reference</h3><p>Venue options are also available in the dropdown above.</p></div></div>
+    <div id="venueTable"></div>
+</section>
+    </main>
+</div>
+<script src="assets/lecturer.js"></script>
+</body>
+</html>

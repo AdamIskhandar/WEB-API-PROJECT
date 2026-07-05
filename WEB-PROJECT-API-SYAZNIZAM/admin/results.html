@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results</title>
+    <link rel="stylesheet" href="assets/admin.css" />
+  </head>
+  <body data-page="results">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo">A</div>
+          <h1>Admin<br />Control</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html" data-nav="dashboard">Overview</a><a href="users.html" data-nav="users">Users</a><a href="courses.html" data-nav="courses">Courses</a><a href="venues.html" data-nav="venues">Venues</a><a href="exams.html" data-nav="exams">Exam Schedules</a><a href="registrations.html" data-nav="registrations">Registrations</a><a href="results.html" data-nav="results">Results</a><a href="notifications.html" data-nav="notifications">Notifications</a><a href="qr.html" data-nav="qr">Admission QR</a>
+        </nav>
+        <div class="user-mini" id="userMini">Loading user...</div>
+      </aside>
+      <main class="main">
+        <div id="alert" class="alert"></div>
+        <section class="topbar">
+          <div>
+            <div class="eyebrow">Exam Scheduling &amp; Result Management</div>
+            <h2>Results</h2>
+            <p>Manage examination results.</p>
+          </div>
+          <div class="actions">
+            <button class="btn secondary" onclick="refreshPage()">
+              Refresh</button
+            ><button class="btn danger" onclick="logout()">Logout</button>
+          </div>
+        </section>
+
+        <section class="grid two-col section">
+          <div class="card">
+            <div class="section-head">
+              <div>
+                <h3>Create Exam Result</h3>
+                <p>Publish a student's marks and grade for an exam.</p>
+              </div>
+            </div>
+            <form id="resultForm" class="form-grid">
+              <label
+                >Student
+                <input
+                  id="resultStudentSearch"
+                  list="resultStudentOptions"
+                  placeholder="Search student name or email"
+                  autocomplete="off"
+                  required
+                />
+                <input id="resultStudentId" name="user_id" type="hidden" />
+                <datalist id="resultStudentOptions"></datalist>
+              </label>
+              <label
+                >Exam ID<input name="exam_id" type="number" required
+              /></label>
+              <label
+                >Marks<input
+                  name="marks_obtained"
+                  type="number"
+                  step="0.01"
+                  required
+              /></label>
+              <label>Grade<input name="grade" required /></label>
+              <label class="full"
+                >Published Date<input name="published_at" type="date" required
+              /></label>
+              <button class="btn full" type="submit">Create Result</button>
+            </form>
+          </div>
+          <div class="card">
+            <div class="section-head">
+              <div>
+                <h3>Results</h3>
+                <p>Published examination result records.</p>
+              </div>
+            </div>
+            <form class="search-box" data-search-module="results">
+              <input
+                type="search"
+                name="q"
+                placeholder="Search results by ID, student, exam, marks, grade, or date"
+              /><button class="btn" type="submit">Search</button
+              ><button class="btn secondary" type="button" data-clear-search>
+                Clear
+              </button>
+            </form>
+            <div id="resultTable"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="assets/admin.js"></script>
+  </body>
+</html>

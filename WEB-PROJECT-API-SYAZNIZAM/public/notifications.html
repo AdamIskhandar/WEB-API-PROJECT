@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Notifications</title>
+    <link rel="stylesheet" href="assets/student.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand"><div class="logo">S</div><h1>Student<br>Portal</h1></div>
+            <nav class="nav">
+                <a href="student.html">Overview</a>
+                <a href="timetable.html">Timetable</a>
+                <a href="results.html">Results</a>
+                <a href="registrations.html">Registrations</a>
+                <a href="notifications.html">Notifications</a>
+                <a href="admission-qr.html">Admission QR</a>
+            </nav>
+            <div class="user-mini" id="userMini">Loading user...</div>
+        </aside>
+
+        <main class="main">
+            <div id="alert" class="alert"></div>
+            <section class="topbar">
+                <div>
+                    <div class="eyebrow">Student</div>
+                    <h2>Notifications</h2>
+                    <p>View announcements related to exam schedules, registration, and results.</p>
+                </div>
+                <div class="actions">
+                    <button class="btn secondary" onclick="loadAll()">Refresh</button>
+                    <button class="btn danger" onclick="logout()">Logout</button>
+                </div>
+            </section>
+
+            <section class="card section">
+                <div class="section-head">
+                    <div>
+                        <h3>Latest Notifications</h3>
+                        <p>System notifications and important updates.</p>
+                    </div>
+                    <span class="pill">Updates</span>
+                </div>
+                <div id="noticeList" class="notice-list"></div>
+            </section>
+        </main>
+    </div>
+    <script src="assets/student.js"></script>
+</body>
+</html>

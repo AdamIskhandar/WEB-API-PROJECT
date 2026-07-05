@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="assets/lecturer.css">
+</head>
+<body data-page="notifications">
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand"><div class="logo">L</div><h1>Lecturer<br>Workspace</h1></div>
+        <nav class="nav">
+            <a href="index.html" data-nav="dashboard">Overview</a><a href="courses.html" data-nav="courses">Courses</a><a href="exams.html" data-nav="exams">Exam Schedule</a><a href="results.html" data-nav="results">Results</a><a href="notifications.html" data-nav="notifications">Notifications</a>
+        </nav>
+        <div class="user-mini" id="userMini">Loading user...</div>
+    </aside>
+    <main class="main">
+        <div id="alert" class="alert"></div>
+        <section class="topbar">
+            <div><div class="eyebrow">Exam Management System</div><h2>Notifications</h2><p>View automatic notifications created when new exam schedules are added.</p></div>
+            <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button><button class="btn danger" onclick="logout()">Logout</button></div>
+        </section>
+        <section class="section">
+    <div class="card">
+        <div class="section-head"><div><h3>Automatic Notifications</h3><p>Notifications are sent to students only when a new exam schedule is created.</p></div></div>
+        <div id="notificationTable"></div>
+    </div>
+</section>
+    </main>
+</div>
+<script src="assets/lecturer.js"></script>
+</body>
+</html>

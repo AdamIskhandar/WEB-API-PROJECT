@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer Dashboard</title>
+    <link rel="stylesheet" href="assets/lecturer.css">
+</head>
+<body data-page="dashboard">
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand"><div class="logo">L</div><h1>Lecturer<br>Workspace</h1></div>
+        <nav class="nav">
+            <a href="index.html" data-nav="dashboard">Overview</a><a href="courses.html" data-nav="courses">Courses</a><a href="exams.html" data-nav="exams">Exam Schedule</a><a href="results.html" data-nav="results">Results</a><a href="notifications.html" data-nav="notifications">Notifications</a>
+        </nav>
+        <div class="user-mini" id="userMini">Loading user...</div>
+    </aside>
+    <main class="main">
+        <div id="alert" class="alert"></div>
+        <section class="topbar">
+            <div><div class="eyebrow">Exam Management System</div><h2>Lecturer Dashboard</h2><p>Overview of lecturer modules only.</p></div>
+            <div class="actions"><button class="btn secondary" onclick="refreshPage()">Refresh</button><button class="btn danger" onclick="logout()">Logout</button></div>
+        </section>
+        <section class="grid stats">
+    <div class="card stat"><span>My Courses</span><strong id="countCourses">0</strong></div>
+    <div class="card stat"><span>Exam Schedules</span><strong id="countExams">0</strong></div>
+    <div class="card stat"><span>Results</span><strong id="countResults">0</strong></div>
+    <div class="card stat"><span>Notifications</span><strong id="countNotifications">0</strong></div>
+</section>
+<section class="grid three-col section">
+    <div class="card"><div class="section-head"><div><h3>Exam schedules</h3><p>Create and monitor examination dates, times, courses, and venues.</p></div></div><a class="btn secondary" href="exams.html">Open page</a></div>
+    <div class="card"><div class="section-head"><div><h3>Results</h3><p>Publish marks and grades for student examination records.</p></div></div><a class="btn secondary" href="results.html">Open page</a></div>
+    <div class="card"><div class="section-head"><div><h3>Notifications</h3><p>View automatic notifications generated from new exam schedules.</p></div></div><a class="btn secondary" href="notifications.html">Open page</a></div>
+</section>
+<section class="grid two-col section">
+    <div class="card"><div class="section-head"><div><h3>Recent Exam Schedules</h3><p>Latest exam schedule records returned by the API.</p></div></div><div id="examTable"></div></div>
+    <div class="card"><div class="section-head"><div><h3>Recent Notifications</h3><p>Latest notifications returned by the API.</p></div></div><div id="notificationTable"></div></div>
+</section>
+    </main>
+</div>
+<script src="assets/lecturer.js"></script>
+</body>
+</html>
